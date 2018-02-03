@@ -1,0 +1,7 @@
+.idea/
+npm-debug.log
+node_modules/
+web/
+build/
+src/**/*.js
+src/**/*.js.map

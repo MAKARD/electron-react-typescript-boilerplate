@@ -1,0 +1,68 @@
+{
+  "name": "electron-react-typescript-boilerpalte",
+  "version": "1.0.0",
+  "description": "Electron + React + TypeScript",
+  "scripts": {
+    "start:view": "cross-env NODE_MODE=view webpack-dev-server",
+    "start:app": "cross-env NODE_MODE=app webpack && electron ./build/entry.js",
+    "lint": "./node_modules/.bin/tslint --exclude '**/*.js' --project ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MAKARD/electron-react-typescript-boilerpalte"
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "typescript"
+  ],
+  "author": "Makarenko Dmitry",
+  "devDependencies": {
+    "@types/prop-types": "^15.5.2",
+    "electron": "1.7.12",
+    "electron-prebuilt": "^1.4.13",
+    "pre-commit": "^1.2.2",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.6.0",
+    "tslint-react": "^3.2.0",
+    "webpack-dev-server": "^2.7.1",
+    "cross-env": "^5.0.5"
+  },
+  "dependencies": {
+    "@types/node": "^8.0.47",
+    "@types/react": "^16.0.19",
+    "autoprefixer": "^7.1.2",
+    "awesome-typescript-loader": "^3.2.2",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-regenerator-runtime": "^6.5.0",
+    "breakpoint-sass": "^2.7.1",
+    "compass-mixins": "^0.12.10",
+    "css-loader": "^0.28.4",
+    "cssnano": "^3.10.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.30.1",
+    "image-webpack-loader": "^3.3.1",
+    "node-sass": "^4.5.3",
+    "normalize.css": "^7.0.0",
+    "postcss-loader": "^2.0.6",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "resets.css": "^1.0.3",
+    "prop-types": "^15.5.10",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "source-map-loader": "^0.2.1",
+    "susy": "^3.0.1",
+    "typescript": "^2.4.2",
+    "webpack": "^3.6.0",
+    "webpack-plugin-critical": "^1.0.0"
+  },
+  "pre-commit": [
+    "lint"
+  ]
+}
