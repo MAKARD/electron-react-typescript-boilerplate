@@ -1,5 +1,5 @@
 {
-  "name": "electron-react-typescript-boilerpalte",
+  "name": "electron-react-typescript-boilerplate",
   "version": "1.0.0",
   "description": "Electron + React + TypeScript",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/MAKARD/electron-react-typescript-boilerpalte"
+    "url": "https://github.com/MAKARD/electron-react-typescript-boilerplate"
   },
   "keywords": [
     "electron",

@@ -1,4 +1,4 @@
-#Electron + React + TypeScript
+# Electron + React + TypeScript
 
 To start app: 
 ```
