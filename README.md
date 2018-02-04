@@ -29,3 +29,12 @@ npm run build:renderer
 After build app in project root folder will be created 2 folders:
 - build (contains builded layout and js app entry)
 - Electron app-*\*your arch and sys\** (contains .exe file and libs)
+
+## Tests
+
+To run unit tests:
+```
+npm run tests:unit
+```
+**If you want testing with renderer layout - start renderer layout first!**
+
