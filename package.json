@@ -5,7 +5,8 @@
   "productName": "Electron app",
   "main": "process/entry.js",
   "scripts": {
-    "tests:unit": "cross-env NODE_MODE=process webpack && cross-env NODE_ENV=test TS_NODE_PROJECT=tsconfig.json nyc --reporter=html mocha -r jsdom-global/register -r ts-node/register -r source-map-support/register tests/unit/bootstrap.ts tests/**/*-specs.tsx tests/**/*-specs.ts",
+    "tests:unit": "cross-env NODE_ENV=test TS_NODE_PROJECT=tsconfig.json ./node_modules/.bin/nyc --reporter=html mocha -r jsdom-global/register -r ts-node/register -r source-map-support/register tests/unit/bootstrap.ts tests/unit/*-specs.tsx tests/unit/*-specs.ts",
+    "tests:e2e": "cross-env NODE_MODE=process webpack && cross-env NODE_ENV=test mocha -r jsdom-global/register -r ts-node/register -r source-map-support/register tests/acceptance/*-specs.ts",
     "start:renderer": "cross-env NODE_MODE=renderer webpack-dev-server",
     "start:process": "cross-env NODE_MODE=process webpack && electron ./build/process/entry.js",
     "build:renderer": "cross-env NODE_MODE=renderer NODE_ENV=production webpack",
@@ -46,6 +47,7 @@
   "dependencies": {
     "@types/node": "^8.0.47",
     "@types/react": "^16.0.19",
+    "@types/webdriverio": "^4.8.8",
     "autoprefixer": "^7.1.2",
     "awesome-typescript-loader": "^3.2.2",
     "babel-core": "^6.25.0",
@@ -59,11 +61,11 @@
     "babel-preset-react": "^6.24.1",
     "babel-regenerator-runtime": "^6.5.0",
     "breakpoint-sass": "^2.7.1",
+    "clean-webpack-plugin": "^0.1.18",
     "compass-mixins": "^0.12.10",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.28.4",
     "cssnano": "^3.10.0",
-    "clean-webpack-plugin": "^0.1.18",
-    "cross-env": "^5.0.5",
     "electron": "1.7.12",
     "electron-packager": "^10.1.2",
     "electron-prebuilt": "^1.4.13",
@@ -83,9 +85,9 @@
     "style-loader": "^0.18.2",
     "susy": "^3.0.1",
     "typescript": "^2.4.2",
+    "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.6.0",
-    "webpack-plugin-critical": "^1.0.0",
-    "uglifyjs-webpack-plugin": "^1.1.8"
+    "webpack-plugin-critical": "^1.0.0"
   },
   "pre-commit": [
     "lint"

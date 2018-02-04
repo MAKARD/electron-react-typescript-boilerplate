@@ -21,4 +21,12 @@ describe("Application launch", function() {
     it("Should create one window on start", async () => {
         expect(await app.client.getWindowCount()).to.equals(1);
     })
+
+    it("Should contains `Hello world` on start", async () => {
+       await app.client.waitUntilWindowLoaded();
+       expect(
+           await app.client.$("#content-overlay > span").getText()
+        ).to.equal("Hello, World from desktop app!");
+    })
+
 });
