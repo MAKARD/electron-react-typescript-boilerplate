@@ -1,7 +1,7 @@
 .idea/
 npm-debug.log
 node_modules/
-web/
-build/
+/build
+/Electron app*
 src/**/*.js
 src/**/*.js.map

@@ -4,40 +4,56 @@ const webpack = require("webpack");
 
 const CriticalPlugin = require("webpack-plugin-critical").CriticalPlugin;
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const debug = process.env.NODE_ENV !== "production";
 const env = debug ? "local" : "production";
 
-const isAppBuilding = process.env.NODE_MODE === "app";
+const isAppBuilding = process.env.NODE_MODE === "process";
 console.log(`Building ${process.env.NODE_MODE}`);
 console.log(`Running in ${env} environment`);
 
 const remote = debug
     ? "http://localhost:8089"
-    : "file://" + path.join(__dirname, "web/index.html");
+    : `file://${path.resolve("./build/renderer/index.html")}`;
 
 const output = isAppBuilding
     ? {
         filename: "entry.js",
-        path: path.resolve("./build"),
-        publicPath: "/",
+        path: path.resolve("./build/process"),
+        publicPath: "./",
     }
     : {
         filename: "[name].[hash:6].js",
-        path: path.resolve("./web"),
-        publicPath: "/",
+        path: path.resolve("./build/renderer"),
+        publicPath: "./",
     };
 
 const target = isAppBuilding
     ? { target: "electron" }
     : {};
 
+const babelEnvLoaderPlugins = [
+    "transform-object-rest-spread",
+    "syntax-dynamic-import",
+    "transform-class-properties",
+    "transform-regenerator",
+    ["transform-runtime", {
+        polyfill: false,
+        regenerator: true,
+    }],
+];
+
 const config = {
-    entry: ["babel-regenerator-runtime", isAppBuilding ? "./src/app/entry.ts" : "./src/view/index.tsx"],
+    entry: [
+        "babel-regenerator-runtime",
+        isAppBuilding ? "./src/process/entry.ts" : "./src/renderer/index.tsx"
+    ],
     devServer: {
         historyApiFallback: true,
-        contentBase: "./web",
+        contentBase: "./renderer",
         host: "localhost",
         publicPath: "/",
         noInfo: false,
@@ -102,8 +118,7 @@ const config = {
                             },
                         },
                     ],
-                }
-                ),
+                }),
             },
             {
                 test: /\.woff2?$|\.ttf$|\.eot$|\.otf$/,
@@ -128,9 +143,10 @@ const config = {
                                     "targets": {
                                         "node": "current",
                                     },
+                                    "useBuiltIns": true
                                 }],
                             ],
-                            "plugins": ["transform-object-rest-spread"]
+                            "plugins": babelEnvLoaderPlugins
                         },
                     },
                     "awesome-typescript-loader",
@@ -140,8 +156,7 @@ const config = {
                 test: /\.jsx?$/,
                 exclude:
                     [/node_modules/],
-                loader:
-                    "babel-loader",
+                loader: "babel-loader",
                 query: {
                     presets: [
                         "react",
@@ -149,9 +164,10 @@ const config = {
                             "targets": {
                                 "node": "current",
                             },
+                            "useBuiltIns": true
                         }]
                     ],
-                    "plugins": ["transform-object-rest-spread"]
+                    "plugins": babelEnvLoaderPlugins
                 },
             },
             {
@@ -190,7 +206,7 @@ if (!isAppBuilding) {
         }),
         new webpack.IgnorePlugin(/caniuse-lite\/data\/regions/),
         new HtmlWebpackPlugin({
-            title: "Wearesho",
+            title: "Electron app",
             template: path.resolve('./templates/index.ejs'),
             minify: {
                 minifyCSS: !debug,
@@ -209,18 +225,20 @@ if (debug) {
     );
 } else {
     config.plugins.push(
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
+        new CleanWebpackPlugin([path.resolve(`./build/${process.env.NODE_MODE}`)]),
+        new UglifyJsPlugin({
+            parallel: true,
+            cache: true,
+            uglifyOptions: {
+                ie8: false,
+                ecma: 8,
+                output: {
+                    comments: false,
+                    beautify: false,
+                },
+                compress: true,
                 warnings: false
-            },
-            minimize: true,
-            comments: false,
-        }),
-        new CriticalPlugin({
-            src: "index.html",
-            inline: true,
-            minify: true,
-            dest: "index.html"
+            }
         })
     );
     imagesLoaders.push(
@@ -252,6 +270,17 @@ if (debug) {
             },
         }
     );
+}
+
+if (!debug && !isAppBuilding) {
+    config.plugins.push(
+        new CriticalPlugin({
+            src: "index.html",
+            inline: true,
+            minify: true,
+            dest: "index.html"
+        })
+    )
 }
 
 config.module.loaders.push(
