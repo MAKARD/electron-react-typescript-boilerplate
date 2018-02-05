@@ -38,3 +38,8 @@ npm run tests:unit
 ```
 **If you want testing with renderer layout - start renderer layout first!**
 
+To run unit acceptance tests:
+```
+npm run tests:e2e
+```
+
