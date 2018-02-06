@@ -12,7 +12,7 @@ To start renderer layout:
 npm run start:renderer
 ```
 
-First recommended start view.
+First recommended start renderer layout.
 
 ## Build
 
@@ -28,7 +28,7 @@ npm run build:renderer
 
 After build app in project root folder will be created 2 folders:
 - build (contains builded layout and js app entry)
-- Electron app-*\*your arch and sys\** (contains .exe file and libs)
+- Electron app-*\*your arch and sys\** (contains .exe file and libs on Windows | only app on MacOS | app and libs on Linux)
 
 ## Tests
 
