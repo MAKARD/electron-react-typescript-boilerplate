@@ -28,7 +28,7 @@ npm run build:renderer
 
 After build app in project root folder will be created 2 folders:
 - build (contains builded layout and js app entry)
-- Electron app-*\*your arch and sys\** (contains .exe file and libs on Windows | only app on MacOS | app and libs on Linux)
+- Electron app-*\*your arch and sys\** (.exe file and libs on Windows | only app on MacOS | app and libs on Linux)
 
 ## Tests
 
@@ -38,7 +38,7 @@ npm run tests:unit
 ```
 **If you want testing with renderer layout - start renderer layout first!**
 
-To run unit acceptance tests:
+To run acceptance tests:
 ```
 npm run tests:e2e
 ```
